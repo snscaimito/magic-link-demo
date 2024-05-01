@@ -1,0 +1,15 @@
+version: '3'
+services:
+  magic-link-api:
+    build:
+      context: ./magic-link-api
+    ports:
+      - 8080:8080
+
+  magic-link-web:
+    build:
+      context: ./magic-link-web
+    ports:
+      - 80:80
+    depends_on:
+      - magic-link-api
