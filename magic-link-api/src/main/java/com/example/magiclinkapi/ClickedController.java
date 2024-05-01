@@ -9,9 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/clicked")
 public class ClickedController {
 
+  private int count = 0;
+
   @PostMapping
   public ResponseEntity<Object> clicked() {
-    return ResponseEntity.noContent().build();
+    String content = """
+        <button hx-post="/api/clicked" hx-swap="outerHTML">
+          %s times. Click me again!
+        </button>
+        """;
+    return ResponseEntity.ok(String.format(content, ++count));
   }
 
 }
