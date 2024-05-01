@@ -11,7 +11,7 @@ public class ClickedController {
 
   @PostMapping
   public ResponseEntity<Object> clicked() {
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 
 }

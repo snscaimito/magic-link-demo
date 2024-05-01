@@ -13,3 +13,16 @@ services:
       - 80:80
     depends_on:
       - magic-link-api
+    environment:
+     - API_HOST=magic-link-api
+
+  magic-link-web-dev:
+    profiles:
+      - development
+    build:
+      context: ./magic-link-web
+    ports:
+      - 80:80
+    environment:
+     - API_HOST=${API_HOST}
+
