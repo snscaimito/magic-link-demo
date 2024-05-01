@@ -36,7 +36,7 @@ public class SignupController {
         """
             <div>
               <p>Thank you for signing up!</p>
-              <p>Here is the confirmation link that would be sent via email: <a href="%s">The Confirmation Link</a></p>
+              <p>Here is the confirmation link that would be sent via email: <a data-cy="confirmationLink" href="%s">The Confirmation Link</a></p>
             </div>
             """,
         magicLink);
