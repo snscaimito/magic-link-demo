@@ -1,4 +1,7 @@
 version: '3'
+
+
+
 services:
   magic-link-api:
     build:
@@ -13,16 +16,16 @@ services:
       - 80:80
     depends_on:
       - magic-link-api
-    environment:
-     - API_HOST=magic-link-api
 
   magic-link-web-dev:
     profiles:
       - development
     build:
       context: ./magic-link-web
+      dockerfile: Dockerfile.dev
     ports:
       - 80:80
     environment:
      - API_HOST=${API_HOST}
-
+    volumes:
+     - ./magic-link-web/content:/usr/share/nginx/html

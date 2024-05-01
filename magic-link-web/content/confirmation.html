@@ -7,19 +7,15 @@
 <body>
   <h1>Magic Link Demo</h1>
 
-  <h2>Signup</h2>
-
-  <form hx-post="/api/signup" hx-swap="outerHTML">
-    <input type="email" name="email" placeholder="Email" required>
-    <button type="submit">Signup</button>
-  </form>
+  <p>Your confirmation was accepted.</p>
+  
 
   <h2>Login</h2>
-
+  
   <form hx-post="/api/login">
     <input type="email" name="email" placeholder="Email" required>
     <button type="submit">Login</button>  
   </form>
-
+  
 </body>
 </html>
