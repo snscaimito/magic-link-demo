@@ -25,7 +25,7 @@ public class SignupController {
   @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
   public ResponseEntity<Object> signup(@RequestBody MultiValueMap<String, String> formData) {
     String email = formData.getFirst("email");
-    LOGGER.debug("Signup request received for email: {}", email);
+    LOGGER.info("Signup request received for email: {}", email);
 
     UserEntity userEntity = magicLinkService.saveUser(email);
 
@@ -46,7 +46,7 @@ public class SignupController {
 
   @GetMapping(value = "/{userId}/confirm")
   public RedirectView confirm(@PathVariable String userId) {
-    LOGGER.debug("Confirmation request received for userId: {}", userId);
+    LOGGER.info("Confirmation request received for userId: {}", userId);
 
     magicLinkService.confirmUser(userId);
 

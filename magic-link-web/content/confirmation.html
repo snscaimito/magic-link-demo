@@ -12,8 +12,8 @@
 
   <h2>Login</h2>
   
-  <form hx-post="/api/login">
-    <input type="email" name="email" placeholder="Email" required>
+  <form name="login" hx-post="/api/login" hx-swap="outerHTML">
+    <input data-cy="email" type="email" name="email" placeholder="Email" required>
     <button type="submit">Login</button>  
   </form>
   

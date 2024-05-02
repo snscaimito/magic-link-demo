@@ -15,7 +15,7 @@ public class MagicLinkService {
   private final List<UserEntity> database = new ArrayList<>();
 
   public UserEntity saveUser(String email) {
-    LOGGER.debug("Saving user with email: {}", email);
+    LOGGER.info("Saving user with email: {}", email);
     UserEntity user = new UserEntity(email, UUID.randomUUID());
 
     database.add(user);
@@ -23,7 +23,7 @@ public class MagicLinkService {
   }
 
   public void confirmUser(String userId) {
-    LOGGER.debug("Confirming user with userId: {}", userId);
+    LOGGER.info("Confirming user with userId: {}", userId);
 
     UUID uuid = UUID.fromString(userId);
 
@@ -33,7 +33,7 @@ public class MagicLinkService {
 
   public boolean isUserConfirmed(String email) {
     boolean confirmed = database.stream().anyMatch(u -> u.getEmail().equals(email) && u.isConfirmed());
-    LOGGER.debug("User with email: {} is confirmed: {}", email, confirmed);
+    LOGGER.info("User with email: {} is confirmed: {}", email, confirmed);
     return confirmed;
   }
 
