@@ -29,9 +29,7 @@ public class SignupController {
 
     UserEntity userEntity = magicLinkService.saveUser(email);
 
-    // TODO to a service
     String magicLink = String.format("/api/signup/%s/confirm", userEntity.getUserId().toString());
-
     String response = String.format(
         """
             <div>

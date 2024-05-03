@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping(value = "/api/login")
 public class LoginController {
@@ -53,11 +56,16 @@ public class LoginController {
   }
 
   @GetMapping("/{magicUUID}")
-  public RedirectView login(@PathVariable String magicUUID) {
+  public RedirectView login(@PathVariable String magicUUID, HttpServletResponse response) {
     LOGGER.info("Magic link request received for magicUUID: {}", magicUUID);
 
     if (magicLinkService.authenticate(UUID.fromString(magicUUID))) {
-      return new RedirectView("/secured.html");
+      Cookie cookie = new Cookie("MagicId", magicUUID);
+      cookie.setPath("/secured");
+      response.addCookie(cookie);
+      RedirectView redirectView = new RedirectView("/secured/secured.html");
+      redirectView.setHttp10Compatible(false);
+      return redirectView;
     } else {
       return new RedirectView("/error.html");
     }
