@@ -30,28 +30,37 @@ public class LoginController {
 
     String email = formData.getFirst("email");
 
-    // TODO to a service and with authorization
-    String magicLink = String.format("/api/login/%s", UUID.randomUUID().toString());
+    try {
+      String magicLink = magicLinkService.preAuthenticate(email);
 
-    String response = String.format(
-        """
-            <div>
-              <p>Thank you for logging in!</p>
-              <p>Here is the magic link that would be sent via email: <a data-cy="magicLink" href="%s">The Magic Link</a></p>
-            </div>
-            """,
-        magicLink);
+      String response = String.format(
+          """
+              <div>
+                <p>Thank you for logging in!</p>
+                <p>Here is the magic link that would be sent via email: <a data-cy="magicLink" href="%s">The Magic Link</a></p>
+              </div>
+              """,
+          magicLink);
 
-    return ResponseEntity.ok(response);
+      return ResponseEntity.ok(response);
+    } catch (Exception e) {
+      return ResponseEntity.ok("""
+          <div>
+            <p data-cy="refusalMessage">Sorry, we could not log you in.</p>
+          </div>
+          """);
+    }
   }
 
   @GetMapping("/{magicUUID}")
   public RedirectView login(@PathVariable String magicUUID) {
     LOGGER.info("Magic link request received for magicUUID: {}", magicUUID);
 
-    RedirectView redirectView = new RedirectView();
-    redirectView.setUrl("/secured.html");
-    return redirectView;
+    if (magicLinkService.authenticate(UUID.fromString(magicUUID))) {
+      return new RedirectView("/secured.html");
+    } else {
+      return new RedirectView("/error.html");
+    }
   }
 
 }

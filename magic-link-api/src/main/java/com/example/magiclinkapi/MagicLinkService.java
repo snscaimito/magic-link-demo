@@ -37,4 +37,30 @@ public class MagicLinkService {
     return confirmed;
   }
 
+  public String preAuthenticate(String email) {
+    LOGGER.info("Pre-authenticating user with email: {}", email);
+
+    UserEntity user = database.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElseThrow();
+
+    if (user.isConfirmed()) {
+      UUID magicLinkId = UUID.randomUUID();
+      user.setMagicLinkId(magicLinkId);
+
+      return String.format("/api/login/%s", magicLinkId.toString());
+    } else {
+      throw new RuntimeException("User is not confirmed");
+    }
+  }
+
+  public boolean authenticate(UUID uuid) {
+    try {
+      UserEntity user = database.stream().filter(u -> u.getMagicLinkId().equals(uuid)).findFirst().orElseThrow();
+      LOGGER.info("Authenticating user with email: {}", user.getEmail());
+
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
 }

@@ -7,6 +7,7 @@ public class UserEntity {
   private String email;
   private UUID userId;
   private boolean confirmed;
+  private UUID magicLinkId; // TODO make this to expire after a certain amount of time
 
   public UserEntity(String email, UUID randomUUID) {
     this.email = email;
@@ -27,6 +28,14 @@ public class UserEntity {
 
   public void setConfirmed(boolean confirmed) {
     this.confirmed = confirmed;
+  }
+
+  public void setMagicLinkId(UUID magicLinkId) {
+    this.magicLinkId = magicLinkId;
+  }
+
+  public UUID getMagicLinkId() {
+    return magicLinkId;
   }
 
 }
