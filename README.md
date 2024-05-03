@@ -2,15 +2,23 @@
 
 Magic Links are a simple way to allow authorized access to a website without building a full-fledged user management system.
 
-## Run for development
+**Instead of actually sending an email this demo displays the magic link in the frontend application where it can be clicked.**
+
+
+## Development
+
+First, start the services as tmux sessions with:
 
     ./devStart
 
-This uses tmux and shows in a split window the API application to the left and the Docker container to the right.
+Then you can edit the source.
 
-## Console output instead of email
+There is "local CI" available. Stop the services started by `devStart` and then run
 
-Instead of actually sending an email this demo displays the magic link on the console of the API application.
+    ./ci
+
+This uses tmux and runs Cypress in headless mode. The usual videos and screenshots will be created in case of any failures.
+
 
 ## How logging in with Magic Link works
 
