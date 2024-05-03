@@ -25,5 +25,14 @@ describe('Login', () => {
     cy.get('[data-cy="magicLink"]').should('not.exist')
     cy.get('[data-cy="refusalMessage"]').should('exist')
   })
+
+  it('fails to access secured content', () => {
+    cy.request({
+      url: 'http://localhost/secured/secured.html',
+      failOnStatusCode: false
+    }).then((response) => {
+      expect(response.status).to.eq(403)
+    })
+  })
   
 })
